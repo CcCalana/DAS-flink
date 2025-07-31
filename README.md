@@ -257,11 +257,6 @@ performance.parallel.threads=4
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
-## 👥 团队
-
-- **开发团队**: 浙江大学地震学研究组
-- **技术支持**: DAS-Flink 开发团队
-- **联系方式**: [email@example.com]
 
 ## 🙏 致谢
 
