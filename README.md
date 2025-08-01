@@ -1,55 +1,55 @@
-# DAS-Flink: 分布式光纤声学传感实时流处理框架
+# DAS-Flink: Distributed Acoustic Sensing Real-time Stream Processing Framework
 
-## 项目简介
+## Project Overview
 
-DAS-Flink 是一个基于 Apache Flink 的分布式光纤声学传感（DAS）数据实时流处理框架，专门用于地震学研究和地震事件检测。该框架集成了多种先进的信号处理算法和事件检测方法，为地震监测提供低延迟、高精度的实时分析能力。
+DAS-Flink is a real-time stream processing framework for Distributed Acoustic Sensing (DAS) data based on Apache Flink, specifically designed for seismological research and seismic event detection. This framework integrates multiple advanced signal processing algorithms and event detection methods, providing low-latency, high-precision real-time analysis capabilities for seismic monitoring.
 
-## 🚀 主要特性
+## 🚀 Key Features
 
-### 核心功能
-- **实时流处理**: 基于 Apache Flink 的高性能流处理引擎
-- **多算法支持**: 集成空间平均、移动微分、频域去噪、小波去噪、EMD分解等多种算法
-- **事件检测**: 新增 STA/LTA (Short-Term Average/Long-Term Average) 事件检测功能
-- **级联处理**: 支持多种算法的级联组合，提供最优的降噪效果
-- **自适应参数**: 智能调整检测参数，适应不同的信号特征和环境条件
+### Core Functionality
+- **Real-time Stream Processing**: High-performance stream processing engine based on Apache Flink
+- **Multi-algorithm Support**: Integrated spatial averaging, moving differentiation, frequency domain denoising, wavelet denoising, EMD decomposition, and other algorithms
+- **Event Detection**: Enhanced STA/LTA (Short-Term Average/Long-Term Average) event detection functionality
+- **Cascade Processing**: Support for cascaded combinations of multiple algorithms, providing optimal denoising effects
+- **Adaptive Parameters**: Intelligent adjustment of detection parameters to adapt to different signal characteristics and environmental conditions
 
-### 技术特点
-- **低延迟**: 毫秒级的事件检测响应时间
-- **高可扩展性**: 支持水平扩展，处理大规模 DAS 数据流
-- **容错性**: 内置检查点机制，保证数据处理的可靠性
-- **实时监控**: 提供详细的性能指标和处理统计
-- **灵活配置**: 支持多种参数配置和算法组合
+### Technical Features
+- **Low Latency**: Millisecond-level event detection response time
+- **High Scalability**: Support for horizontal scaling to process large-scale DAS data streams
+- **Fault Tolerance**: Built-in checkpoint mechanism ensuring data processing reliability
+- **Real-time Monitoring**: Detailed performance metrics and processing statistics
+- **Flexible Configuration**: Support for various parameter configurations and algorithm combinations
 
-## 📋 系统架构
+## 📋 System Architecture
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   DAS 传感器    │───▶│   Kafka 消息队列  │───▶│  Flink 流处理   │
-│   数据采集      │    │   数据缓冲       │    │   实时分析      │
+│   DAS Sensors   │───▶│   Kafka Queue    │───▶│  Flink Stream   │
+│  Data Collection│    │  Data Buffering  │    │  Real-time      │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
                                                         │
                                                         ▼
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   告警系统      │◀───│   事件检测结果    │◀───│  STA/LTA 检测   │
-│   实时通知      │    │   质量评估       │    │   事件识别      │
+│  Alert System   │◀───│ Event Detection  │◀───│  STA/LTA        │
+│ Real-time Notify│    │ Quality Assessment│    │  Detection      │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
-## 🛠️ 算法组件
+## 🛠️ Algorithm Components
 
-### 降噪算法
-- **算法A**: 空间平均 → 移动微分 → 频域去噪
-- **算法B**: 小波去噪 → 空间平均 → 频域去噪  
-- **算法C**: EMD分解 → 主成分重构 → SVD滤波 → 频域去噪
-- **算法D**: 自定义算法组合
+### Denoising Algorithms
+- **Algorithm A**: Spatial Averaging → Moving Differentiation → Frequency Domain Denoising
+- **Algorithm B**: Wavelet Denoising → Spatial Averaging → Frequency Domain Denoising  
+- **Algorithm C**: EMD Decomposition → Principal Component Reconstruction → SVD Filtering → Frequency Domain Denoising
+- **Algorithm D**: Custom Algorithm Combinations
 
-### 事件检测算法
-- **STA/LTA 检测**: 短时平均/长时平均比值检测
-- **自适应参数**: 根据信号特征自动调整检测参数
-- **多尺度检测**: 支持 P波、S波、区域地震、远震等不同类型事件检测
-- **质量评估**: 自动评估检测结果的可靠性
+### Event Detection Algorithms
+- **STA/LTA Detection**: Short-Term Average/Long-Term Average ratio detection
+- **Adaptive Parameters**: Automatic adjustment of detection parameters based on signal characteristics
+- **Multi-scale Detection**: Support for different types of event detection including P-waves, S-waves, regional earthquakes, teleseisms
+- **Quality Assessment**: Automatic evaluation of detection result reliability
 
-## 📦 项目结构
+## 📦 Project Structure
 
 ```
 DAS-flink/
@@ -85,52 +85,52 @@ DAS-flink/
 └── pom.xml                           # Maven 配置
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 环境要求
-- Java 8 或更高版本
+### Requirements
+- Java 8 or higher
 - Apache Flink 1.14+
 - Apache Kafka 2.8+
 - Maven 3.6+
 
-### 安装步骤
+### Installation Steps
 
-1. **克隆项目**
+1. **Clone the Project**
    ```bash
    git clone <repository-url>
    cd DAS-flink
    ```
 
-2. **编译项目**
+2. **Build the Project**
    ```bash
    mvn clean package
    ```
 
-3. **配置 Kafka**
+3. **Configure Kafka**
    ```bash
-   # 创建输入主题
+   # Create input topic
    kafka-topics.sh --create --topic seismic-data --bootstrap-server localhost:9092
    
-   # 创建输出主题
+   # Create output topic
    kafka-topics.sh --create --topic event-detection-results --bootstrap-server localhost:9092
    ```
 
-4. **运行示例**
+4. **Run Examples**
    ```bash
    # Windows
    scripts\run-event-detection.bat
    
-   # 或直接运行示例
+   # Or run example directly
    java -cp target/das-flink-1.0-SNAPSHOT.jar com.zjujzl.das.example.STALTAExample
    ```
 
-### 运行事件检测作业
+### Running Event Detection Job
 
 ```bash
-# 启动 Flink 集群
+# Start Flink cluster
 start-cluster.sh
 
-# 提交事件检测作业
+# Submit event detection job
 flink run --class com.zjujzl.das.EventDetectionJob \
   target/das-flink-1.0-SNAPSHOT.jar \
   --kafka.bootstrap.servers localhost:9092 \
@@ -138,133 +138,133 @@ flink run --class com.zjujzl.das.EventDetectionJob \
   --kafka.output.topic event-detection-results
 ```
 
-## 📊 使用示例
+## 📊 Usage Examples
 
-### 基本 STA/LTA 检测
+### Basic STA/LTA Detection
 
 ```java
-// 创建检测器
+// Create detector
 STALTADetector detector = new STALTADetector();
 
-// 执行检测
+// Execute detection
 STALTADetector.DetectionResult result = STALTADetector.detect(
-    signal,           // 输入信号
-    samplingRate,     // 采样率
-    2.0,              // STA 窗口长度 (秒)
-    30.0,             // LTA 窗口长度 (秒)
-    3.0,              // 触发阈值
-    1.5,              // 结束阈值
-    1.0               // 最小事件长度 (秒)
+    signal,           // Input signal
+    samplingRate,     // Sampling rate
+    2.0,              // STA window length (seconds)
+    30.0,             // LTA window length (seconds)
+    3.0,              // Trigger threshold
+    1.5,              // End threshold
+    1.0               // Minimum event length (seconds)
 );
 
-// 获取检测结果
-System.out.println("检测到事件数: " + result.totalEvents);
-System.out.println("最大 STA/LTA 比值: " + result.maxRatio);
+// Get detection results
+System.out.println("Events detected: " + result.totalEvents);
+System.out.println("Maximum STA/LTA ratio: " + result.maxRatio);
 ```
 
-### 自适应参数检测
+### Adaptive Parameter Detection
 
 ```java
-// 自适应检测，自动调整参数
+// Adaptive detection with automatic parameter adjustment
 STALTADetector.DetectionResult result = STALTADetector.adaptiveDetect(
     signal, samplingRate
 );
 ```
 
-### 流处理集成
+### Stream Processing Integration
 
 ```java
-// 创建事件检测处理器
+// Create event detection processor
 EventDetectionProcessor processor = new EventDetectionProcessor("A");
 
-// 在 Flink 数据流中使用
+// Use in Flink data stream
 DataStream<EventDetectionResult> results = seismicStream
     .process(processor)
     .name("Event Detection");
 ```
 
-## ⚙️ 配置说明
+## ⚙️ Configuration
 
-### STA/LTA 参数配置
+### STA/LTA Parameter Configuration
 
-在 `stalte-config.properties` 文件中配置检测参数：
+Configure detection parameters in the `stalte-config.properties` file:
 
 ```properties
-# 基础参数
+# Basic parameters
 default.sta.length.sec=2.0
 default.lta.length.sec=30.0
 default.threshold.on=3.0
 default.threshold.off=1.5
 
-# 算法特定配置
+# Algorithm-specific configuration
 algorithm.A.sta.length.sec=1.5
 algorithm.A.threshold.on=2.8
 
-# 地震学专用配置
+# Seismology-specific configuration
 p.wave.sta.length.sec=0.5
 p.wave.threshold.on=4.0
 ```
 
-### 性能调优
+### Performance Tuning
 
 ```properties
-# 性能配置
+# Performance configuration
 performance.max.batch.size=1000
 performance.parallel.processing.enabled=true
 performance.parallel.threads=4
 ```
 
-## 📈 性能指标
+## 📈 Performance Metrics
 
-- **处理延迟**: < 100ms (典型场景)
-- **吞吐量**: > 10,000 记录/秒
-- **检测精度**: > 95% (在标准测试数据集上)
-- **误报率**: < 5%
+- **Processing Latency**: < 100ms (typical scenarios)
+- **Throughput**: > 10,000 records/second
+- **Detection Accuracy**: > 95% (on standard test datasets)
+- **False Positive Rate**: < 5%
 
-## 🔧 开发指南
+## 🔧 Development Guide
 
-### 添加新算法
+### Adding New Algorithms
 
-1. 在 `algorithm` 包中创建新的算法类
-2. 实现相应的接口
-3. 在 `CascadeDenoiser` 中添加算法调用
-4. 更新配置文件
+1. Create new algorithm class in the `algorithm` package
+2. Implement corresponding interfaces
+3. Add algorithm calls in `CascadeDenoiser`
+4. Update configuration files
 
-### 自定义事件检测
+### Custom Event Detection
 
-1. 继承 `STALTADetector` 类
-2. 重写检测方法
-3. 在 `EventDetectionProcessor` 中集成
+1. Extend the `STALTADetector` class
+2. Override detection methods
+3. Integrate in `EventDetectionProcessor`
 
-## 📚 文档
+## 📚 Documentation
 
-- [STA/LTA 详细文档](docs/README_STA_LTA.md)
-- [API 文档](docs/api/)
-- [算法说明](docs/algorithms/)
-- [配置指南](docs/configuration/)
+- [STA/LTA Detailed Documentation](docs/README_STA_LTA.md)
+- [API Documentation](docs/api/)
+- [Algorithm Description](docs/algorithms/)
+- [Configuration Guide](docs/configuration/)
 
-## 🤝 贡献
+## 🤝 Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Welcome to submit Issues and Pull Requests!
 
-1. Fork 项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开 Pull Request
+1. Fork the project
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
 
-## 📄 许可证
+## 📄 License
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
-## 🙏 致谢
+## 🙏 Acknowledgments
 
-感谢以下开源项目的支持：
+Thanks to the following open source projects for their support:
 - [Apache Flink](https://flink.apache.org/)
 - [Apache Kafka](https://kafka.apache.org/)
-- [ObsPy](https://github.com/obspy/obspy) (算法参考)
+- [ObsPy](https://github.com/obspy/obspy) (algorithm reference)
 
 ---
 
-**注意**: 这是一个研究项目，用于地震学研究和 DAS 数据分析。在生产环境中使用前，请进行充分的测试和验证。
+**Note**: This is a research project for seismological research and DAS data analysis. Please conduct thorough testing and validation before using in production environments.
