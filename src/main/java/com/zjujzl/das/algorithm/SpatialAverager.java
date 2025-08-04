@@ -32,37 +32,35 @@ public class SpatialAverager {
             return new double[0];
         }
         
-        // 窗口大小必须为奇数
         if (windowSize % 2 == 0) {
-            throw new IllegalArgumentException("Window size must be odd, got: " + windowSize);
+            windowSize++; // 窗口大小必须为奇数
         }
         
         if (windowSize <= 0) {
             throw new IllegalArgumentException("Window size must be positive, got: " + windowSize);
         }
         
-        // 对于过大的窗口，限制其大小
-        windowSize = Math.min(windowSize, signal.length);
-        if (windowSize % 2 == 0) windowSize--;
+        if (windowSize > signal.length / 2) {
+            windowSize = signal.length / 2; // 对于过大的窗口，限制其大小
+            if (windowSize % 2 == 0) windowSize--;
+        }
         
         int halfWindow = windowSize / 2;
         double[] result = new double[signal.length];
         
         for (int i = 0; i < signal.length; i++) {
-            double sum = 0;
-            int count = 0;
-            
             // 计算窗口范围，处理边界情况
             int start = Math.max(0, i - halfWindow);
             int end = Math.min(signal.length - 1, i + halfWindow);
             
             // 计算窗口内的平均值
+            double sum = 0.0;
+            int count = 0;
             for (int j = start; j <= end; j++) {
                 sum += signal[j];
                 count++;
             }
-            
-            result[i] = count > 0 ? sum / count : 0;
+            result[i] = sum / count;
         }
         
         return result;
@@ -87,32 +85,42 @@ public class SpatialAverager {
         }
         
         double[] result = new double[signal.length];
+        double threshold = 1.0; // 方差阈值
+        int maxWindow = Math.min(baseWindowSize * 3, signal.length / 4);
+        if (maxWindow % 2 == 0) maxWindow--;
         
         for (int i = 0; i < signal.length; i++) {
             // 计算局部方差
-            double localVariance = calculateLocalVariance(signal, i, baseWindowSize);
+            double variance = calculateLocalVariance(signal, i, baseWindowSize);
             
             // 自适应窗口大小
-            int adaptiveWindow = Math.max(3, (int)(baseWindowSize / (1 + adaptationFactor * localVariance)));
-            if (adaptiveWindow % 2 == 0) adaptiveWindow--;
+            int currentWindow = (variance > threshold) ? 
+                Math.max(3, (int)(baseWindowSize / (1 + adaptationFactor * variance))) : baseWindowSize;
+            if (currentWindow % 2 == 0) currentWindow--;
+            currentWindow = Math.min(currentWindow, maxWindow);
             
             // 应用自适应窗口进行平均
-            int halfWindow = adaptiveWindow / 2;
-            double sum = 0;
-            int count = 0;
-            
-            int start = Math.max(0, i - halfWindow);
-            int end = Math.min(signal.length - 1, i + halfWindow);
-            
-            for (int j = start; j <= end; j++) {
-                sum += signal[j];
-                count++;
-            }
-            
-            result[i] = count > 0 ? sum / count : 0;
+            result[i] = applyWindow(signal, i, currentWindow);
         }
         
         return result;
+    }
+    
+    /**
+     * 对指定位置应用窗口平均
+     */
+    private static double applyWindow(double[] signal, int center, int windowSize) {
+        int halfWindow = windowSize / 2;
+        int start = Math.max(0, center - halfWindow);
+        int end = Math.min(signal.length - 1, center + halfWindow);
+        
+        double sum = 0.0;
+        int count = 0;
+        for (int j = start; j <= end; j++) {
+            sum += signal[j];
+            count++;
+        }
+        return sum / count;
     }
     
     /**

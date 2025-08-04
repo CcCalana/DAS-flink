@@ -113,7 +113,8 @@ public class CascadeDenoiser extends ProcessFunction<SeismicRecord, DenoiseResul
             }
         } catch (Exception e) {
             System.err.println("ERROR: Failed to process signal with algorithm " + algorithmType + ": " + e.getMessage());
-            return FDDAPlus.apply(signal); // 回退到基线算法
+            // 回退到基线算法
+            return FDDAPlus.apply(signal);
         }
     }
     

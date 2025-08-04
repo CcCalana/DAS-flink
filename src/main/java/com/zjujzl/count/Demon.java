@@ -14,11 +14,11 @@ import org.apache.flink.util.Collector;
  */
 public class Demon {
     public static void main(String[] args) throws Exception {
-        //创建执行环境
+        // 创建执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        //读取数据
+        // 读取数据
         DataStreamSource<String> lines = env.readTextFile("input/word.txt");
-        //处理数据
+        // 处理数据
         SingleOutputStreamOperator<Tuple2<String, Integer>> wordAndOne = lines.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
             @Override
             public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
@@ -36,9 +36,9 @@ public class Demon {
             }
         });
         SingleOutputStreamOperator<Tuple2<String, Integer>> sum = wordAndOneKs.sum(1);
-        //输出
+        // 输出
         sum.print();
-        //执行
+        // 执行
         env.execute();
 
     }

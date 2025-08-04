@@ -32,20 +32,29 @@ import java.util.List;
 public class STALTADetector {
     
     // 默认参数配置
-    private static final double DEFAULT_STA_LENGTH_SEC = 2.0;    // 短期窗口2秒
-    private static final double DEFAULT_LTA_LENGTH_SEC = 30.0;   // 长期窗口30秒
-    private static final double DEFAULT_THRESHOLD_ON = 3.0;      // 触发阈值
-    private static final double DEFAULT_THRESHOLD_OFF = 1.5;     // 结束阈值
-    private static final double DEFAULT_MIN_EVENT_LENGTH_SEC = 1.0; // 最小事件长度
+    // 短期窗口2秒
+    private static final double DEFAULT_STA_LENGTH_SEC = 2.0;
+    // 长期窗口30秒
+    private static final double DEFAULT_LTA_LENGTH_SEC = 30.0;
+    // 触发阈值
+    private static final double DEFAULT_THRESHOLD_ON = 3.0;
+    // 结束阈值
+    private static final double DEFAULT_THRESHOLD_OFF = 1.5;
+    // 最小事件长度
+    private static final double DEFAULT_MIN_EVENT_LENGTH_SEC = 1.0;
     
     /**
      * 事件检测结果
      */
     public static class DetectionResult {
-        public double[] staLtaRatio;     // STA/LTA比值序列
-        public List<EventWindow> events; // 检测到的事件窗口
-        public double maxRatio;          // 最大比值
-        public int totalEvents;          // 事件总数
+        // STA/LTA比值序列
+        public double[] staLtaRatio;
+        // 检测到的事件窗口
+        public List<EventWindow> events;
+        // 最大比值
+        public double maxRatio;
+        // 事件总数
+        public int totalEvents;
         
         public DetectionResult(double[] staLtaRatio, List<EventWindow> events) {
             this.staLtaRatio = staLtaRatio;
@@ -64,12 +73,18 @@ public class STALTADetector {
      * 事件窗口
      */
     public static class EventWindow {
-        public int startIndex;    // 事件开始索引
-        public int endIndex;      // 事件结束索引
-        public double startTime;  // 事件开始时间（秒）
-        public double endTime;    // 事件结束时间（秒）
-        public double maxRatio;   // 事件期间最大STA/LTA比值
-        public double duration;   // 事件持续时间（秒）
+        // 事件开始索引
+        public int startIndex;
+        // 事件结束索引
+        public int endIndex;
+        // 事件开始时间（秒）
+        public double startTime;
+        // 事件结束时间（秒）
+        public double endTime;
+        // 事件期间最大STA/LTA比值
+        public double maxRatio;
+        // 事件持续时间（秒）
+        public double duration;
         
         public EventWindow(int startIndex, int endIndex, double samplingRate) {
             this.startIndex = startIndex;
@@ -98,8 +113,21 @@ public class STALTADetector {
                                        double thresholdOn, double thresholdOff,
                                        double minEventLengthSec) {
         
+        // 参数验证
         if (signal == null || signal.length == 0) {
             return new DetectionResult(new double[0], new ArrayList<>());
+        }
+        
+        if (staLengthSec <= 0) {
+            throw new IllegalArgumentException("STA窗口长度必须大于0");
+        }
+        
+        if (ltaLengthSec <= staLengthSec) {
+            throw new IllegalArgumentException("LTA窗口长度必须大于STA窗口长度");
+        }
+        
+        if (thresholdOn <= thresholdOff) {
+            throw new IllegalArgumentException("触发阈值必须大于结束阈值");
         }
         
         // 转换时间窗口为采样点数
@@ -230,8 +258,8 @@ public class STALTADetector {
         double staLength = Math.max(1.0, Math.min(3.0, signalLength * 0.05));
         double ltaLength = Math.max(staLength * 5, Math.min(60.0, signalLength * 0.3));
         
-        // 基于信号强度调整阈值
-        double thresholdOn = rms > 1000 ? 2.5 : 3.5;  // 强信号用较低阈值
+        // 基于信号强度调整阈值（使用更敏感的阈值）
+        double thresholdOn = rms > 100 ? 2.0 : 2.5;  // 强信号用较低阈值
         double thresholdOff = thresholdOn * 0.6;
         
         return detect(signal, samplingRate, staLength, ltaLength,

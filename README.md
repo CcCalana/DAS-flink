@@ -4,7 +4,7 @@
 
 DAS-Flink is a real-time stream processing framework for Distributed Acoustic Sensing (DAS) data based on Apache Flink, specifically designed for seismological research and seismic event detection. This framework integrates multiple advanced signal processing algorithms and event detection methods, providing low-latency, high-precision real-time analysis capabilities for seismic monitoring.
 
-## 🚀 Key Features
+## Key Features
 
 ### Core Functionality
 - **Real-time Stream Processing**: High-performance stream processing engine based on Apache Flink
@@ -20,7 +20,7 @@ DAS-Flink is a real-time stream processing framework for Distributed Acoustic Se
 - **Real-time Monitoring**: Detailed performance metrics and processing statistics
 - **Flexible Configuration**: Support for various parameter configurations and algorithm combinations
 
-## 📋 System Architecture
+## System Architecture
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -35,7 +35,7 @@ DAS-Flink is a real-time stream processing framework for Distributed Acoustic Se
 └─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
-## 🛠️ Algorithm Components
+## Algorithm Components
 
 ### Denoising Algorithms
 - **Algorithm A**: Spatial Averaging → Moving Differentiation → Frequency Domain Denoising
@@ -49,7 +49,7 @@ DAS-Flink is a real-time stream processing framework for Distributed Acoustic Se
 - **Multi-scale Detection**: Support for different types of event detection including P-waves, S-waves, regional earthquakes, teleseisms
 - **Quality Assessment**: Automatic evaluation of detection result reliability
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 DAS-flink/
@@ -85,7 +85,7 @@ DAS-flink/
 └── pom.xml                           # Maven 配置
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Requirements
 - Java 8 or higher
@@ -138,7 +138,7 @@ flink run --class com.zjujzl.das.EventDetectionJob \
   --kafka.output.topic event-detection-results
 ```
 
-## 📊 Usage Examples
+## Usage Examples
 
 ### Basic STA/LTA Detection
 
@@ -183,7 +183,7 @@ DataStream<EventDetectionResult> results = seismicStream
     .name("Event Detection");
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 ### STA/LTA Parameter Configuration
 
@@ -214,14 +214,14 @@ performance.parallel.processing.enabled=true
 performance.parallel.threads=4
 ```
 
-## 📈 Performance Metrics
+## Performance Metrics
 
 - **Processing Latency**: < 100ms (typical scenarios)
 - **Throughput**: > 10,000 records/second
 - **Detection Accuracy**: > 95% (on standard test datasets)
 - **False Positive Rate**: < 5%
 
-## 🔧 Development Guide
+## Development Guide
 
 ### Adding New Algorithms
 
@@ -236,14 +236,14 @@ performance.parallel.threads=4
 2. Override detection methods
 3. Integrate in `EventDetectionProcessor`
 
-## 📚 Documentation
+## Documentation
 
 - [STA/LTA Detailed Documentation](docs/README_STA_LTA.md)
 - [API Documentation](docs/api/)
 - [Algorithm Description](docs/algorithms/)
 - [Configuration Guide](docs/configuration/)
 
-## 🤝 Contributing
+## Contributing
 
 Welcome to submit Issues and Pull Requests!
 
@@ -253,12 +253,12 @@ Welcome to submit Issues and Pull Requests!
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Thanks to the following open source projects for their support:
 - [Apache Flink](https://flink.apache.org/)

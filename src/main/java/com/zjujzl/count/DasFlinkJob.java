@@ -51,7 +51,8 @@ public class DasFlinkJob {
     public static class Sample {
         public String station;
         public String channel;
-        public double ts;   // epoch 秒
+        // epoch 秒
+    public double ts;
         public int    val;
 
         // Flink POJO 需要无参构造器

@@ -48,7 +48,8 @@ public class SVDFilter {
         }
         
         int n = signal.length;
-        int windowSize = Math.min(n / 2, 50); // 窗口大小
+        // 窗口大小
+        int windowSize = Math.min(n / 2, 50);
         
         // 构造Hankel矩阵
         double[][] hankel = createHankelMatrix(signal, windowSize);

@@ -6,7 +6,7 @@ import com.zjujzl.das.model.EvaluationMetric;
 
 public class NoiseMetrics {
 
-    //信噪比提升计算
+    // 信噪比提升计算
     public static double snrImprovement(double[] original, double[] denoised) {
         double signalPower = 0;
         double noisePower = 0;
@@ -21,7 +21,7 @@ public class NoiseMetrics {
         return 10 * Math.log10(signalPower / noisePower);
     }
 
-    //波形失真度计算
+    // 波形失真度计算
     public static double waveformDistortion(double[] original, double[] denoised) {
         double diffSum = 0;
         double maxOriginal = Double.MIN_VALUE;
@@ -36,7 +36,7 @@ public class NoiseMetrics {
         return diffSum / (original.length * maxOriginal);
     }
 
-    //特征相关性计算
+    // 特征相关性计算
     public static double featureCorrelation(double[] original, double[] denoised) {
         double meanOrig = mean(original);
         double meanDenoised = mean(denoised);

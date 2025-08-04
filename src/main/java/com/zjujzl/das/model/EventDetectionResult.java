@@ -8,28 +8,44 @@ import java.util.List;
  * 包含原始信号、降噪结果和STA/LTA事件检测信息
  */
 public class EventDetectionResult {
-    public SeismicRecord originalSignal;           // 原始地震信号
-    public double[] denoisedSignal;                // 降噪后的信号
-    public String denoisingAlgorithm;              // 使用的降噪算法
-    public long denoisingTime;                     // 降噪处理时间(ms)
+    // 原始地震信号
+    public SeismicRecord originalSignal;
+    // 降噪后的信号
+    public double[] denoisedSignal;
+    // 使用的降噪算法
+    public String denoisingAlgorithm;
+    // 降噪处理时间(ms)
+    public long denoisingTime;
     
     // STA/LTA检测结果
-    public double[] staLtaRatio;                   // STA/LTA比值序列
-    public List<STALTADetector.EventWindow> events; // 检测到的事件窗口
-    public double maxRatio;                        // 最大STA/LTA比值
-    public int totalEvents;                        // 检测到的事件总数
-    public long detectionTime;                     // 事件检测处理时间(ms)
+    // STA/LTA比值序列
+    public double[] staLtaRatio;
+    // 检测到的事件窗口
+    public List<STALTADetector.EventWindow> events;
+    // 最大STA/LTA比值
+    public double maxRatio;
+    // 检测到的事件总数
+    public int totalEvents;
+    // 事件检测处理时间(ms)
+    public long detectionTime;
     
     // 检测参数
-    public double staLengthSec;                    // STA窗口长度(秒)
-    public double ltaLengthSec;                    // LTA窗口长度(秒)
-    public double thresholdOn;                     // 触发阈值
-    public double thresholdOff;                    // 结束阈值
+    // STA窗口长度(秒)
+    public double staLengthSec;
+    // LTA窗口长度(秒)
+    public double ltaLengthSec;
+    // 触发阈值
+    public double thresholdOn;
+    // 结束阈值
+    public double thresholdOff;
     
     // 质量评估
-    public double signalQuality;                   // 信号质量评分(0-1)
-    public boolean hasSignificantEvents;           // 是否包含显著事件
-    public String detectionSummary;                // 检测结果摘要
+    // 信号质量评分(0-1)
+    public double signalQuality;
+    // 是否包含显著事件
+    public boolean hasSignificantEvents;
+    // 检测结果摘要
+    public String detectionSummary;
     
     public EventDetectionResult() {}
     

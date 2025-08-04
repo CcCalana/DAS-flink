@@ -12,12 +12,12 @@ import org.apache.flink.util.Collector;
  */
 public class WordCountStreamUnboundeDemo {
     public static void main(String[] args) throws Exception {
-        //创建执行环境
+        // 创建执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        //读取数据
-        DataStreamSource<String> socket = env.socketTextStream("10.130.11.14", 7777);
-        //处理数据
-        SingleOutputStreamOperator<Tuple2<String, Integer>> sum = socket.flatMap((String value, Collector<Tuple2<String, Integer>> out) -> {
+        // 读取数据
+        DataStreamSource<String> lineDS = env.socketTextStream("localhost", 7777);
+        // 处理数据
+        SingleOutputStreamOperator<Tuple2<String, Integer>> sum = lineDS.flatMap((String value, Collector<Tuple2<String, Integer>> out) -> {
             String[] words = value.split(" ");
             for (String word : words) {
                 out.collect(new Tuple2<>(word, 1));
