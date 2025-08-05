@@ -37,3 +37,8 @@ build/
 ### Mac OS ###
 .DS_Store
 input/2505.24077v1.pdf
+
+### Custom ignores ###
+.idea/
+src/main/java/com/zjujzl/count/
+EXPERIMENT_README.md
