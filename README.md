@@ -328,7 +328,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For questions, suggestions, or collaboration opportunities:
 
-- **Email**: [your-email@domain.com]
+- **Email**: [22338027@zju.edu.cn]
 - **Issues**: [GitHub Issues](https://github.com/your-username/DAS-flink/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/your-username/DAS-flink/discussions)
 
